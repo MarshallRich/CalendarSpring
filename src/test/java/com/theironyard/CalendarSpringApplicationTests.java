@@ -40,14 +40,11 @@ public class CalendarSpringApplicationTests {
 	boolean firstRun = true;
 
 	@Before
-	public void before() {
-		if (firstRun) {
+	public void before(){
 			favorites.deleteAll();
 			events.deleteAll();
 			users.deleteAll();
 			mockMvc = MockMvcBuilders.webAppContextSetup(wap).build();
-			firstRun = false;
-		}
 	}
 
 	@Test
@@ -62,6 +59,8 @@ public class CalendarSpringApplicationTests {
 
 	@Test
 	public void testAddEvent() throws Exception {
+		testLogin();
+
 		mockMvc.perform(
 				MockMvcRequestBuilders.post("/create-event")
 				.param("description", "Test event")
